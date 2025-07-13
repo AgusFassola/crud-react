@@ -1,6 +1,8 @@
 import express from 'express'
+import morgan from "morgan";
 
 const app = express()
+app.use(morgan('dev'));//para que muestre un mensaje en la consola
 
-app.listen(3000)
-console.log('server on port', 3000)
+export default app;
+//con el default no hace falta poner llaves{} al importarlo
