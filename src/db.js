@@ -4,8 +4,7 @@ import mongoose from "mongoose";
 export const connectDB = async () =>{
     //como pude fallar se lo coloca en un try catch
     try{
-        console.log("llegué")
-        const url = "mongodb+srv://agusfassola:antesydespues@cluster0.q0ebaqb.mongodb.net/crud?retryWrites=true&w=majority&appName=Cluster0";
+        const url = "mongodb+srv://agus:agus@cluster0.q0ebaqb.mongodb.net/crud?retryWrites=true&w=majority&appName=Cluster0";
         await mongoose.connect(url);
 
         console.log("db conected")
