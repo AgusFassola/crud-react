@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {login, register} from "../controllers/auth.controller.js"
+import {login, register, logout} from "../controllers/auth.controller.js"
 import User from "../models/user.model.js";
 
 //creamos un enrutador
@@ -19,5 +19,7 @@ router.get('/users', async (req, res) => {
 
 router.post('/register', register)
 router.post('/login', login)
+router.post('/logout', logout)
+
 
 export default router;
