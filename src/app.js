@@ -1,5 +1,6 @@
 import express from 'express'
 import morgan from "morgan";
+import cookieParser from 'cookie-parser';
 
 import usersRoutes from './routes/users.routes.js';
 
@@ -9,6 +10,7 @@ const app = express()
 app.use(morgan('dev'));//para que muestre un mensaje en la consola
 
 app.use(express.json())//para que pueda convertir los request body en formato json o objeto javascript 
+app.use(cookieParser())//para convertir una cookie en json, es como el express
 app.use("/api",authRoutes);
 
 app.use('/api', usersRoutes);

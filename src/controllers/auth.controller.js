@@ -71,3 +71,19 @@ export const logout = async (req, res) =>{
     });
     return res.sendStatus(200);
 };
+
+export const profile = async (req,res) => {
+    const userFound = await User.findById(req.user.id);//verifico el id del usuario guardado en el req
+
+    if(!userFound) return res.status(400).json({message:"user not found"})
+
+     return res.json({
+            //eligiendo que datos mostrar
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email,
+            createdAt: userFound.createdAt,
+            updatedAt: userFound.updatedAt,
+        })
+    res.send('profile')
+}
