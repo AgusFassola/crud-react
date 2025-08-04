@@ -2,6 +2,8 @@ import { Router } from "express";
 import {login, register, logout, profile} from "../controllers/auth.controller.js"
 import User from "../models/user.model.js";
 import { authRequired } from "../middlewares/validateToken.js";
+import { validateSchema } from "../middlewares/validator.middleware.js";
+import { registerSchema, loginSchema } from "../schemas/auth.schema.js";
 
 //creamos un enrutador
 //guardamos el objeto Router en una const
@@ -18,8 +20,8 @@ router.get('/users', async (req, res) => {
   }
 });
 
-router.post('/register', register)
-router.post('/login', login)
+router.post('/register', validateSchema(registerSchema), register)
+router.post('/login', validateSchema(loginSchema) ,login)
 router.post('/logout', logout)
 router.get('/profile', authRequired, profile)//para que pase por authRequired antes de ir a profile
 
