@@ -1,10 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-//import Home from './pages/Home'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
-//import Profile from './pages/Profile'
-//import NotFound from './pages/NotFound'
+
 
 export default function App() {
   return (
