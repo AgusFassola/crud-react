@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function RegisterPage() {
     const { register, handleSubmit, formState:{errors} } = useForm();
-    const { signUp, isAuthenticated } = useAuth();
+    const { signUp, isAuthenticated, errors:RegisterErrors } = useAuth();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -27,6 +27,13 @@ export default function RegisterPage() {
 
   return (
     <div className='max-w-md mx-auto mt-10 p-6 bg-zinc-800 rounded shadow'>
+      {
+        RegisterErrors.map((error, index) => (
+          <div key={index} className='text-red-500 mb-2'>
+            {error}
+          </div>
+        ))
+      }
       <form onSubmit={onSubmit} >
         <div>
           <label className='' htmlFor="username">Username</label>
