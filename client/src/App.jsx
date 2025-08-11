@@ -10,11 +10,11 @@ export default function App() {
       <Route path="/" element={<h1>HomePage</h1>} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      {/* <Route path="/profile" element={<Profile />} />
-      <Route path="/tasks" element={<Home />} />
-      <Route path="/tasks/:id" element={<Home />} />
-      <Route path="/add-task" element={<Home />} />
-      <Route path="*" element={<NotFound />} /> */}
+      <Route path="/profile" element={<h1>Profile</h1>} />
+      <Route path="/tasks" element={<h1>Tasks</h1>} />
+      <Route path="/tasks/:id" element={<h1>Task</h1>} />
+      <Route path="/add-task" element={<h1>New task</h1>} />
+      <Route path="*" element={<h1>Not Found, pruebe otra dirección</h1>} />
     </Routes>
   )
 }

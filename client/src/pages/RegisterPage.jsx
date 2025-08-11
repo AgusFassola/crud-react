@@ -17,7 +17,7 @@ export default function RegisterPage() {
     const onSubmit = handleSubmit(async (data) => {
         try {
             await signUp(data);
-            console.log('Registration successful');
+            console.log('Registration successful', data);
             // Optionally redirect or show a success message
         } catch (error) {
             console.error('Registration failed:', error);
@@ -40,11 +40,12 @@ export default function RegisterPage() {
             <input 
                 id="username"
                 type="text"
+                //usando react-hook-form para manejar el formulario
                 {...register("username", { required: "Username is required" })}
                 className='border border-gray-400 rounded p-2 m-4'
             />
             {errors.username && (
-                <span className='text-red-500'>{errors.username.message}</span>
+                <p className='text-red-500'>{errors.username.message}</p>
             )}
         </div>
         <div>
@@ -56,7 +57,7 @@ export default function RegisterPage() {
                 className='border border-gray-400 rounded p-2 m-4'
             />
             {errors.email && (
-                <span className='text-red-500'>{errors.email.message}</span>
+                <p className='text-red-500'>{errors.email.message}</p>
             )}
         </div>
         <div>
@@ -68,7 +69,7 @@ export default function RegisterPage() {
                 className='border border-gray-400 rounded p-2 m-4'
             />
             {errors.password && (
-                <span className='text-red-500'>{errors.password.message}</span>
+                <p className='text-red-500'>{errors.password.message}</p>
             )}
         </div>
         <button className='bg-blue-500 text-white rounded p-2 hover:bg-blue-600'
