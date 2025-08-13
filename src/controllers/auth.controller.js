@@ -32,7 +32,8 @@ export const register = async (req, res) =>{
         })
 
     }catch(error){
-        res.status(500).json({ message:error.message })
+        console.log("error probando si es acá:", error)
+        //res.status(500).json({ message:error.message })
     }
     
 };
@@ -43,12 +44,12 @@ export const login = async (req, res) =>{
 
         //buscar el usuario para ver si existe
         const userFound = await User.findOne({email});
-        if(!userFound) return res.status(400).json({message:"User not found"});
+        if(!userFound) return res.status(400).json(["User not found"]);
 
         //comparar contraseña
         const isMatch = await bcrypt.compare(password, userFound.password)
 
-        if(!isMatch) return res.status(400).json({message:"incorrect password"});
+        if(!isMatch) return res.status(400).json(["incorrect password"]);
         
         const token = await createAccessToken({id: userFound._id });
             
@@ -63,7 +64,8 @@ export const login = async (req, res) =>{
         })
 
     }catch(error){
-        res.status(500).json({ message:error.message })
+        console.log("error en el login:", error)
+        //res.status(500).json({ message:error.message })
     }
 };
 

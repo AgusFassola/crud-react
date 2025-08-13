@@ -15,6 +15,7 @@ export const registerSchema = z.object({
     }).min(6, {
         message: 'Password must be at least 6 characters long',
     }),
+    
 });
 
 export const loginSchema = z.object({
