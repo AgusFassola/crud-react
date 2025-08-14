@@ -5,15 +5,13 @@ export const validateSchema = (schema) => (req, res, next) => {
         schema.parse(req.body);
         next();
     } catch (error) {
-     console.log("Zod raw error:", error);
-
-        if (Array.isArray(error.errors)) {
-            const mensajes = error.errors.map(err => err.message);
-            console.log("Mensajes extraídos:", mensajes); // <-- ver en consola
-            return res.status(400).json(mensajes);
-        }
-
-        console.log("Error sin array:", error.message); // <-- ver en consola
-        return res.status(400).json([error.message || "Error desconocido"]);
+        // Si es error de Zod, extraemos solo los mensajes
+    if (error.name === "ZodError" && Array.isArray(error.errors)) {
+      const messages = error.errors.map((err) => err.message);
+      return res.status(400).json(messages);
     }
+
+    // Si no es Zod, igualmente devolvemos string
+    return res.status(400).json([error.message || "Validation error"]);
+  }
 }

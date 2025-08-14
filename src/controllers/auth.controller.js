@@ -33,7 +33,7 @@ export const register = async (req, res) =>{
 
     }catch(error){
         console.log("error probando si es acá:", error)
-        //res.status(500).json({ message:error.message })
+        return res.status(500).json([error.message || "An unexpected error occurred"]);
     }
     
 };

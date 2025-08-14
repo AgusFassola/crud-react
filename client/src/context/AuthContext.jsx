@@ -39,14 +39,8 @@ export const AuthProvider = ({ children }) => {
       setErrors([]);
       console.log('User registered successfully:', response.data);
     } catch (error) {
-      const data = error.response?.data;
-      if (Array.isArray(data)) {
-        setErrors(data);
-      } else if (typeof data === 'string') {
-        setErrors([data]);
-      } else {
-        setErrors(['An unexpected error occurred']);
-      }
+      console.error('Error during registration:', error);
+      setErrors(normalizeErrors(error)); 
     }
   };
 
