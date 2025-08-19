@@ -1,5 +1,6 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { registerRequest, loginRequest } from '../api/auth';
+import { set } from 'mongoose';
 
 export const AuthContext = createContext();
 
@@ -71,6 +72,14 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  useEffect(() => {
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 3000); // Limpiar errores después de 5 segundos
+      return () => clearTimeout(timer); // Limpiar el timer si el componente se desmonta
+    }
+  },[errors]);
 
   return (
     <AuthContext.Provider value={{ signUp, signIn, user, isAuthenticated, errors }}>

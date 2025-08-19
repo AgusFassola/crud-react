@@ -2,6 +2,7 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
 
@@ -28,7 +29,7 @@ export default function LoginPage() {
       }
 
       <form onSubmit={onSubmit} >
-        <h1 className='text-2xl font-bold mb-4'>Login</h1>
+        <h1 className='text-2xl font-bold mb-4 ml-3.5'>Login</h1>
 
         <div>
             <input
@@ -54,9 +55,12 @@ export default function LoginPage() {
                 <p className='text-red-500'>{errors.password.message}</p>
             )}
         </div>
-        <button className='bg-blue-500 text-white rounded p-2 hover:bg-blue-600'
+        <button className=' ml-3.5 bg-blue-500 text-white rounded p-2 hover:bg-blue-600'
         type="submit">Login</button>
       </form>
+      <p className='mt-4 ml-3.5'>
+        Don't have an account? <Link to="/register" className='text-blue-500 hover:underline'>Register</Link>
+      </p>
     </div>
   )
 }

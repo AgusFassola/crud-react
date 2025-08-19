@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function RegisterPage() {
   const { register, handleSubmit, formState: { errors } } = useForm();
@@ -27,7 +27,7 @@ export default function RegisterPage() {
 
   return (
     <div className='max-w-md mx-auto mt-10 p-6 bg-zinc-800 rounded shadow'>
-      <h1 className='text-2xl font-bold mb-5'>Register</h1>
+      <h1 className='text-2xl ml-3.5 font-bold mb-5'>Register</h1>
       {
         Array.isArray(RegisterErrors) && RegisterErrors.map((error, index) => (
           <p key={index} className='text-red-500'>{error}</p>
@@ -35,8 +35,8 @@ export default function RegisterPage() {
       }
       <form onSubmit={onSubmit} >
         <div>
-          <label className='' htmlFor="username">Username</label>
           <input
+            placeholder='Username'
             id="username"
             type="text"
             //usando react-hook-form para manejar el formulario
@@ -48,8 +48,8 @@ export default function RegisterPage() {
           )}
         </div>
         <div>
-          <label htmlFor="email">Email</label>
           <input
+            placeholder='Email'
             id="email"
             type="email"
             {...register("email", { required: "Email is required" })}
@@ -60,8 +60,8 @@ export default function RegisterPage() {
           )}
         </div>
         <div>
-          <label htmlFor="password">Password</label>
           <input
+          placeholder='Password'
             id="password"
             type="password"
             {...register("password", { required: "Password is required" })}
@@ -72,9 +72,12 @@ export default function RegisterPage() {
             <p className='text-red-500'>{errors.password.message}</p>
           )}
         </div>
-        <button className='bg-blue-500 text-white rounded p-2 hover:bg-blue-600'
+        <button className='bg-blue-500 text-white rounded ml-3.5 p-2 hover:bg-blue-600'
           type="submit">Register</button>
       </form>
+      <p className='mt-4 ml-3.5'>
+        Already have an account? <Link to="/login" className='text-blue-500 hover:underline'>Login</Link>
+      </p>
     </div>
   )
 }
