@@ -5,8 +5,8 @@ export const validateSchema = (schema) => (req, res, next) => {
         schema.parse(req.body);
         next();
     } catch (error) {
-        // Si es error de Zod, extraemos solo los mensajes
-    if (error.name === "ZodError" && Array.isArray(error.errors)) {
+      if (error.errors) {
+      // 👇 Solo devolver los mensajes
       const messages = error.errors.map((err) => err.message);
       return res.status(400).json(messages);
     }

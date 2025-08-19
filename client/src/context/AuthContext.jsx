@@ -12,14 +12,29 @@ export const useAuth = () => {
 }
 
 const normalizeErrors = (err) => {
-  if (err?.response?.data?.errors && Array.isArray(err.response.data.errors)) {
-    return err.response.data.errors;
+  const data = err?.response?.data;
+  console.log("data:", data)
+
+  if (Array.isArray(data)) {
+    return data.flatMap((d) => {
+      if (typeof d === "string") {
+        try {
+          // Intentar parsear el string como JSON
+          const parsed = JSON.parse(d);
+          if (Array.isArray(parsed)) {
+            return parsed.map((p) => p.message || JSON.stringify(p));
+          }
+        } catch {
+          // Si no se puede parsear, devolver el string tal cual
+          return d;
+        }
+      }
+      // Si ya es objeto, sacar message
+      return d.message || JSON.stringify(d);
+    });
   }
-  if (Array.isArray(err?.response?.data)) {
-    return err.response.data;
-  }
-  if (typeof err?.response?.data === "string") {
-    return [err.response.data];
+  if (typeof data === "string") {
+    return [data];
   }
   return ["Error desconocido"];
 };
