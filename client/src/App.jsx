@@ -2,18 +2,25 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import HomePage from './pages/HomePage'
+import ProfilePage from './pages/ProfilePage'
+import TasksPage from './pages/TasksPage'
+import TaskFormPage from './pages/TaskFormPage'
 
+import ProtectedRoute from './ProtectedRoute'
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<h1>HomePage</h1>} />
+      <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/profile" element={<h1>Profile</h1>} />
-      <Route path="/tasks" element={<h1>Tasks</h1>} />
-      <Route path="/tasks/:id" element={<h1>Task</h1>} />
-      <Route path="/add-task" element={<h1>New task</h1>} />
+      <Route element={<ProtectedRoute />}>
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/tasks" element={<TasksPage />} />
+        <Route path="/tasks/:id" element={<TaskFormPage />} />
+        <Route path="/add-task" element={<TaskFormPage />} />
+      </Route>
       <Route path="*" element={<h1>Not Found, pruebe otra dirección</h1>} />
     </Routes>
   )

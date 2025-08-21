@@ -12,6 +12,7 @@ const app = express()
 
 app.use(cors({
     origin: 'http://localhost:5173', // URL of your React app
+    credentials: true
 })); //para que pueda recibir peticiones de otros dominios
 app.use(morgan('dev'));//para que muestre un mensaje en la consola
 app.use(express.json())//para que pueda convertir los request body en formato json o objeto javascript 

@@ -1,11 +1,10 @@
-import axios from "axios";  
+import axios from "./axios";  
 
-const API_URL = "http://localhost:4000/api";
 
 export const registerRequest = async (user) => {
-  return await axios.post(`${API_URL}/register`, user);
+  return await axios.post(`/register`, user);
 }
 
 export const loginRequest = async (user) => {
-  return await axios.post(`${API_URL}/login`, user);
+  return await axios.post(`/login`, user);
 }

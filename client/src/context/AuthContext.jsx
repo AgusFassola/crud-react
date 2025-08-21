@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { registerRequest, loginRequest } from '../api/auth';
 import { set } from 'mongoose';
+import Cookies from 'js-cookie';
 
 export const AuthContext = createContext();
 
@@ -63,8 +64,8 @@ export const AuthProvider = ({ children }) => {
   const signIn = async (userData) => {
     try {
       const response = await loginRequest(userData);
-      /* setUser(response.data.user);
-      setIsAuthenticated(true); */
+      setUser(response.data.user);
+      setIsAuthenticated(true);
       console.log('User logged in successfully:', response.data);
     } catch (error) {
       console.error('Error during login:', error);
@@ -80,6 +81,17 @@ export const AuthProvider = ({ children }) => {
       return () => clearTimeout(timer); // Limpiar el timer si el componente se desmonta
     }
   },[errors]);
+
+  useEffect(() => {
+    const token = Cookies.get('token'); 
+    console.log('Token from cookies:', token);
+    if (token) {
+      console.log('Token:', token);
+      setIsAuthenticated(true);
+      // Aquí podrías hacer una llamada a la API para obtener el usuario autenticado
+      // y actualizar el estado de user si es necesario.
+    }
+    }, []);
 
   return (
     <AuthContext.Provider value={{ signUp, signIn, user, isAuthenticated, errors }}>
