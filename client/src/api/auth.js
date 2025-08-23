@@ -8,3 +8,5 @@ export const registerRequest = async (user) => {
 export const loginRequest = async (user) => {
   return await axios.post(`/login`, user);
 }
+
+export const verityTokrnRequest = () => axios.get('/verify')

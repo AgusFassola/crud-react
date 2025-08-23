@@ -84,7 +84,6 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = Cookies.get('token'); 
-    console.log('Token from cookies:', token);
     if (token) {
       console.log('Token:', token);
       setIsAuthenticated(true);
