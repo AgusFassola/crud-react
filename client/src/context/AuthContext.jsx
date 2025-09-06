@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { registerRequest, loginRequest } from '../api/auth';
+import { registerRequest, loginRequest, verityTokrnRequest } from '../api/auth';
 import { set } from 'mongoose';
 import Cookies from 'js-cookie';
 
@@ -46,6 +46,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   //Registrar un usuario
   const signUp = async (userData) => {
@@ -83,17 +84,35 @@ export const AuthProvider = ({ children }) => {
   },[errors]);
 
   useEffect(() => {
-    const token = Cookies.get('token'); 
-    if (token) {
-      console.log('Token:', token);
-      setIsAuthenticated(true);
-      // Aquí podrías hacer una llamada a la API para obtener el usuario autenticado
-      // y actualizar el estado de user si es necesario.
+    async function checkLogin(){
+      const token = Cookies.get('token'); 
+      if (!token) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        return setUser(null);
+      }
+      try{
+        const response = await verityTokrnRequest(token);
+        if(!response.data){
+          setIsAuthenticated(false);
+          setLoading(false);
+          return;
+        }
+        setUser(response.data.user);
+        setIsAuthenticated(true);
+        setLoading(false);
+      }catch(error){
+        console.error('Error verifying token:', error);
+        setUser(null);
+        setIsAuthenticated(false);
+        setLoading(false);
+      }
     }
-    }, []);
+    checkLogin();
+  }, []);
 
   return (
-    <AuthContext.Provider value={{ signUp, signIn, user, isAuthenticated, errors }}>
+    <AuthContext.Provider value={{ signUp,loading, signIn, user, isAuthenticated, errors }}>
       {children}
     </AuthContext.Provider>
   );
