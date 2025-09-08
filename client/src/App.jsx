@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import HomePage from './pages/HomePage'
@@ -8,20 +8,28 @@ import TasksPage from './pages/TasksPage'
 import TaskFormPage from './pages/TaskFormPage'
 
 import ProtectedRoute from './ProtectedRoute'
+import { TaskProvider } from './context/TasksContext'
+import { AuthProvider } from './context/AuthContext'
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/register" element={<RegisterPage />} />
-      <Route element={<ProtectedRoute />}>
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/tasks" element={<TasksPage />} />
-        <Route path="/tasks/:id" element={<TaskFormPage />} />
-        <Route path="/add-task" element={<TaskFormPage />} />
-      </Route>
-      <Route path="*" element={<h1>Not Found, pruebe otra dirección</h1>} />
-    </Routes>
+    <AuthProvider>
+      <TaskProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/tasks" element={<TasksPage />} />
+              <Route path="/tasks/:id" element={<TaskFormPage />} />
+              <Route path="/add-task" element={<TaskFormPage />} />
+            </Route>
+            <Route path="*" element={<h1>Not Found, pruebe otra dirección</h1>} />
+          </Routes>
+        </BrowserRouter>
+      </TaskProvider>
+    </AuthProvider>
   )
 }
