@@ -25,6 +25,12 @@ export default function RegisterPage() {
     }
   });
 
+    useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/tasks'); // Redirige a la página de perfil después del inicio de sesión
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className='max-w-md mx-auto mt-10 p-6 bg-zinc-800 rounded shadow'>
       <h1 className='text-2xl ml-3.5 font-bold mb-5'>Register</h1>

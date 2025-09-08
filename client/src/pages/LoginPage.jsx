@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { use } from 'react'
 import { useForm } from 'react-hook-form';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 export default function LoginPage() {
 
   const { register, handleSubmit, formState:{errors} } = useForm();
-  const {  signIn,  errors:signinErrors } = useAuth();
+  const {  signIn,  errors:signinErrors, isAuthenticated } = useAuth();
+  
   const navigate = useNavigate();
+
   const onSubmit = handleSubmit(async (data) => {
     try {
       await signIn(data); 
@@ -19,6 +21,13 @@ export default function LoginPage() {
       // Optionally show an error message to the user
     }
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/tasks'); // Redirige a la página de perfil después del inicio de sesión
+    }
+  }, [isAuthenticated]);
+
   return (
     <div className='max-w-md mx-auto mt-10 p-6 bg-zinc-800 rounded shadow items-center justify-center'>
       { signinErrors.map((error, index) => (
