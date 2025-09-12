@@ -10,12 +10,14 @@ import TaskFormPage from './pages/TaskFormPage'
 import ProtectedRoute from './ProtectedRoute'
 import { TaskProvider } from './context/TasksContext'
 import { AuthProvider } from './context/AuthContext'
+import Navbar from './components/Navbar'
 
 export default function App() {
   return (
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
+        <Navbar/>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
