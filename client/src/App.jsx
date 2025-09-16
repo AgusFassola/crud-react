@@ -23,12 +23,12 @@ export default function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
-              <Route element={<ProtectedRoute />}>
+              <Routes element={<ProtectedRoute />}>
                 <Route path="/profile" element={<ProfilePage />} />
                 <Route path="/tasks" element={<TasksPage />} />
                 <Route path="/tasks/:id" element={<TaskFormPage />} />
                 <Route path="/add-task" element={<TaskFormPage />} />
-              </Route>
+              </Routes>
               <Route path="*" element={<h1>Not Found, pruebe otra dirección</h1>} />
             </Routes>
           </main>
